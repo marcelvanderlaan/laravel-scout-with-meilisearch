@@ -15,7 +15,7 @@ class SearchController extends Controller
         $users = User::all();
 
         if ($query = $request->get('query')) {
-            $results = Article::search($query)->paginate(5);
+            $results = Article::search($query)->paginate(5)->withQueryString();
         }
 
 //        if($query = $request->get('query')) {
