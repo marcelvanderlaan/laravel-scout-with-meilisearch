@@ -14,4 +14,10 @@ class Article extends Model
     {
         return $this->published == true;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
