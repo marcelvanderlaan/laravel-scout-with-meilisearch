@@ -10,14 +10,16 @@ class Article extends Model
 {
     use HasFactory, Searchable;
 
-    public function shouldBeSearchable(): bool
-    {
-        return $this->published == true;
-    }
+//    public function shouldBeSearchable(): bool
+//    {
+//        return $this->published == true;
+//    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+
 
 }

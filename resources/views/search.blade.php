@@ -29,7 +29,7 @@
                                 <em>Found {{ $results->total() }} results</em>
                                 @foreach($results as $result)
                                     <div>
-                                        <h1 class="text-lg font-semibold">{{ $result->title }}</h1>
+                                        <h1 class="text-lg font-semibold">{{ $result->title }}</h1><span> {{ $result->published }}</span>
                                         <p>{{ $result->teaser }}</p>
                                         <p>{{ $result->user->name }}</p>
                                     </div>

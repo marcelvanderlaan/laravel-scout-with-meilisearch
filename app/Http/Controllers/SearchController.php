@@ -14,18 +14,31 @@ class SearchController extends Controller
         $results = null;
         $users = User::all();
 
-        if ($query = $request->get('query')) {
-            $results = Article::search($query)->paginate(5)->withQueryString();
-        }
-
-//        if($query = $request->get('query')) {
-//            $results = Article::search($query, function ($meilisearch, $query, $options) use ($request) {
-//                if ($userId = $request->get('user_id')) {
-//                    $options['filters'] = 'user_id=' . $userId;
-//                }
-//                return $meilisearch->search($query, $options);
-//            })->paginate(5);
+//        // simple search
+//        if ($query = $request->get('query')) {
+//            $results = Article::search($query)->get();
 //        }
+
+//        //simple search with pagination
+//        if ($query = $request->get('query')) {
+//            $results = Article::search($query)->paginate(5);
+//        }
+
+//        //search with where
+//        if ($query = $request->get('query')) {
+//            $results = Article::search($query)->where('published', 1)->paginate(5);
+//        }
+
+        if ($query = $request->get('query')) {
+            $results = Article::search($query, function ($meilisearch, $query, $options) use ($request) {
+                if ($userId = $request->get('user_id')) {
+                    $options['filter'] = [
+                       'user_id=' . $userId
+                        ];
+                }
+                return $meilisearch->search($query, $options);
+            })->paginate(5)->withQueryString();
+        }
 
         return view('search', [
             'results' => $results,
